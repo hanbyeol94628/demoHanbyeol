@@ -41,6 +41,6 @@
 	</update>
 	
 	<delete id="boardDelete" parameterType="int">
-		DELETE FROM BOARD WHERE no = #{no}
+		DELETE FROM HBBOARD WHERE no = #{no}
 	</delete>
 </mapper>
