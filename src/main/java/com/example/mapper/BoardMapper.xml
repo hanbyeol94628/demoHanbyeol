@@ -27,7 +27,7 @@
 	<insert id="boardInsert" parameterType="com.example.domain.BoardVO">
 		INSERT INTO
 		HBBOARD (NO, SUBJECT, CONTENT, WRITER, REGDATE)
-		VALUES (#{no}, #{subject}, #{content}, #{writer}, now())
+		VALUES (#{no}, #{subject}, #{content}, #{writer}, sysdate)
 	</insert>
 	
 	<update id="boardUpdate" parameterType="com.example.domain.BoardVO">
