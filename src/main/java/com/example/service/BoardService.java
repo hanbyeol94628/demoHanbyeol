@@ -19,5 +19,20 @@ public class BoardService {
 		return boardMapper.boardList();
 	}
 	
+	public BoardVO boardDetailService(int no) throws Exception{
+		return boardMapper.boardDetail(no);
+	}
+	
+	public int boardInsertService(BoardVO board) throws Exception{
+		return boardMapper.boardInsert(board);
+	}
+	
+	public int boardUpdateService(BoardVO board) throws Exception{
+		return boardMapper.boardUpdate(board);
+	}
+	
+	public int boardDeleteService(int no) throws Exception{
+		return boardMapper.boardDelete(no);
+	}
 	
 }
