@@ -38,10 +38,19 @@ public class BoardController {
 	
 	
 	@RequestMapping("/insertProc")
-	private int boardInsertProc(HttpServletRequest request) throws Exception{
-		BoardVO board = (BoardVO) request.getParameterMap();
-		return boardService.boardInsertService(board);
+	private String boardInsertProc(HttpServletRequest request) throws Exception{
+		
+		BoardVO board = new BoardVO();
+		
+		board.setSubject(request.getParameter("subject"));
+		board.setContent(request.getParameter("content"));
+		board.setWriter(request.getParameter("writer"));
+		
+		boardService.boardInsertService(board);
+		
+		return "redirect:/list";
 	}
+	
 	
 	// 수정 폼 호출
 	@RequestMapping("/update/{no}") 
