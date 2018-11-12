@@ -14,6 +14,7 @@
 		SELECT
 		*
 		FROM HBBOARD
+		ORDER BY NO DESC
 	</select>
 	
 	<select id="boardDetail" parameterType="int" resultType="com.example.domain.BoardVO">
@@ -21,29 +22,25 @@
 		*
 		FROM HBBOARD 
 		WHERE
-			NO = #{no}
+		no = #{no}
 	</select>
 
 	<insert id="boardInsert" parameterType="com.example.domain.BoardVO">
 		INSERT INTO
 		HBBOARD (NO, SUBJECT, CONTENT, WRITER, REGDATE)
-		VALUES (#{no}, #{subject}, #{content}, #{writer}, sysdate)
+		VALUES (HBBOARD_SEQ.nextval, #{subject}, #{content}, #{writer}, sysdate)
 	</insert>
 	
 	<update id="boardUpdate" parameterType="com.example.domain.BoardVO">
 		UPDATE HBBOARD
 		SET
-		<if test="subject != null">
-			SUBJECT = #{subject}
-		</if>
-		<if test="subject != null and content != null">.</if>
-		<if test="content != null">
-			CONTENT = #{content}
-		</if>
-		WHERE NO = #{no}
+		SUBJECT = #{subject}
+		,
+		CONTENT = #{content}
+		WHERE no = #{no}
 	</update>
 	
 	<delete id="boardDelete" parameterType="int">
-		DELETE FROM BOARD WHERE NO = #{no}
+		DELETE FROM BOARD WHERE no = #{no}
 	</delete>
 </mapper>

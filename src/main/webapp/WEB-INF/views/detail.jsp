@@ -11,6 +11,11 @@
 		 
 	<h2>게시글 상세 </h2>
 	 
+	 <button class="btn btn-primary" onclick="location.href='/update/${detail.no}'">수정</button>
+	 <button class="btn btn-danger" onclick="location.href='/delete/${detail.no}'">삭제</button>
+	 <button class="btn btn-primary" onclick="location.href='/list'">목록</button>
+	 
+	 
 	<div class="container">
 	    <form action="/insertProc" method="post">
 	      <div class="form-group">
@@ -29,7 +34,7 @@
 	        <label>내용</label>
 	        <p>${detail.content}</p>
 	      </div>
-	      <button type="submit" class="btn btn-primary">작성</button>
+	      <!-- <button type="submit" class="btn btn-primary">작성</button> -->
 	    </form>
 </div>
 	

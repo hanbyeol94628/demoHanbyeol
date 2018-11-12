@@ -17,6 +17,7 @@ public class BoardController {
 	@Resource(name="com.example.service.BoardService")
 	BoardService boardService;
 	
+	
 	// 리스트
 	@RequestMapping("/list")
 	private String boardList(Model model) throws Exception{
@@ -59,12 +60,20 @@ public class BoardController {
 		return "update";
 	}
 	
-	@RequestMapping("/updateProc")
-	private int boardUpdateProc(HttpServletRequest request) throws Exception{
-		BoardVO board = (BoardVO) request.getParameterMap();
-		return boardService.boardUpdateService(board);
+	@RequestMapping("/updateProc/{no}")
+	private String boardUpdateProc(@PathVariable int no, Model model, HttpServletRequest request) throws Exception{
+       
+		BoardVO board = boardService.boardDetailService(no);
+        board.setSubject(request.getParameter("subject"));
+        board.setContent(request.getParameter("content"));
+        boardService.boardUpdateService(board);
+        
+        return "redirect:/detail/"+request.getParameter("no"); 
+
 	}
 	
+	
+	// 삭제 
 	@RequestMapping("/delete/{no}")
 	private String boardDelete(@PathVariable int no) throws Exception{
 		boardService.boardDeleteService(no);
