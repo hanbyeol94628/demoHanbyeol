@@ -14,7 +14,7 @@ import com.example.service.BoardService;
 @Controller
 public class BoardController {
 
-	@Resource(name="com.example.service")
+	@Resource(name="com.example.service.BoardService")
 	BoardService boardService;
 	
 	// 리스트
@@ -29,6 +29,13 @@ public class BoardController {
 		model.addAttribute("detail", boardService.boardDetailService(no));
 		return "detail";
 	}
+	
+	// 작성 폼 호출
+	@RequestMapping("/insert")
+	private String boardInsertForm() {
+		return "insert";
+	}
+	
 	
 	@RequestMapping("/insertProc")
 	private int boardInsertProc(HttpServletRequest request) throws Exception{
