@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>글 목록</title>
 </head>
 <body>
 
@@ -22,7 +22,7 @@
 	            <th>Date</th>
 	        </tr>
 	          <c:forEach var="l" items="${list}">
-	              <tr>
+	              <tr onclick="location.href='/detail/${l.no}'">
 	                  <td>${l.no}</td>
 	                  <td>${l.subject}</td>
 	                  <td>${l.writer}</td>
