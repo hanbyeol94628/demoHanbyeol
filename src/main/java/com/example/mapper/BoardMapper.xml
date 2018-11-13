@@ -59,4 +59,19 @@
 	<delete id="boardDelete" parameterType="int">
 		DELETE FROM HBBOARD WHERE no = #{no}
 	</delete>
+	
+	
+	
+	
+	
+	<select id="fileDetail" parameterType="int" resultType="com.example.domain.FileVO">
+		SELECT
+		*
+		FROM Files
+		WHERE
+		NO = #{no}
+	</select>
+	
+	
+	
 </mapper>

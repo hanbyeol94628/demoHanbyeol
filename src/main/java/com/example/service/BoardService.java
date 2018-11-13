@@ -45,5 +45,9 @@ public class BoardService {
 	}
 	public int lastNo() throws Exception{
 		return boardMapper.lastNo();
-	};
+	}
+	
+	public FileVO fileDetailService(int no) throws Exception{
+		return boardMapper.fileDetail(no);
+	}
 }

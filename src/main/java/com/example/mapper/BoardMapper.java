@@ -33,4 +33,7 @@ public interface BoardMapper {
 
 	// 마지막 글번호
 	public int lastNo() throws Exception;
+	
+	// 파일 상세
+	public FileVO fileDetail(int no) throws Exception;
 }
