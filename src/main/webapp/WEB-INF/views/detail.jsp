@@ -5,15 +5,6 @@
 <%@ taglib prefix="layoutTag" tagdir="/WEB-INF/tags"%>      
     
 <layoutTag:layout> 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Detail</title>
-</head>
-<body>
-		 
-
 	<div class="container">
 		<div class="col-xs-12" style="margin: 15px auto;">
 			<label style="font-size:20px;"><span class="glyphicon glyphicon-edit">&nbsp;글 보기</span></label>
@@ -46,10 +37,26 @@
 				 <button class="btn btn-default" onclick="location.href='/delete/${detail.no}'">삭제</button>
 				 <button class="btn btn-default" onclick="location.href='/list'">목록</button>
 			 </div>
-			 
 		</div>
 		
+		
+		<!-- 댓글 -->
+		<div class="container">
+			<label for="content">comment</label>
+			<form name="commentInsertForm">
+				<div class="input-group">
+					<input type="hidden" name="no" value="${detail.no}"/>
+					<input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" name="commentAddBtn">등록</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	
+		<div class="container">
+			<div class="commentList"></div>
+		</div>
 	</div>
-</body>
-</html>
+<%@ include file="commentS.jsp" %>	
 </layoutTag:layout>

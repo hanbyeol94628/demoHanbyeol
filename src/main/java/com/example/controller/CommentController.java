@@ -37,6 +37,4 @@ public class CommentController {
 		
 		return commentService.commentInsertService(comment);
 	}
-	
-	
 }
