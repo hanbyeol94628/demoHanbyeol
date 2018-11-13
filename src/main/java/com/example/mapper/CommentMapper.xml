@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.CommentMapper">
+	
+	
+	<select id="commentCount" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM HBCOMMENT
+	</select>
+
+	<select id="commentList" resultType="com.example.domain.CommentVO">
+		SELECT
+		*
+		FROM HBCOMMENT
+	</select>
+	
+
+	<insert id="commentInsert" parameterType="com.example.domain.CommentVO">
+		INSERT INTO
+		HBCOMMENT (CNO, NO, CONTENT, WRITER, REGDATE)
+		VALUES (HBCOMMENT_SEQ.nextval, #{no}, #{content}, #{writer}, sysdate)
+	</insert>
+
+	
+	<update id="commentUpdate" parameterType="com.example.domain.CommentVO">
+		UPDATE HBCOMMENT
+		SET
+		CONTENT = #{content}
+		WHERE cno = #{cno}
+	</update>
+	
+	<delete id="commentDelete" parameterType="int">
+		DELETE FROM HBCOMMENT WHERE cno = #{cno}
+	</delete>
+	
+	
+</mapper>
