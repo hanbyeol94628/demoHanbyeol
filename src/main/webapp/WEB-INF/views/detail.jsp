@@ -26,6 +26,12 @@
 	        <label>작성자</label>
 	        <p>${detail.writer}</p>
 	      </div>
+	      
+	      <div class="form-group">
+	        <label>첨부 파일</label>
+	        <p><a href="/fileDown/${files.no}">${files.fileOrigName}</a></p>
+	      </div>
+	      
 	      <div class="form-group">
 	        <label>작성날짜</label>
 	        <p>${detail.regDate}</p>

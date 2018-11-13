@@ -1,9 +1,14 @@
 package com.example.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -35,6 +40,7 @@ public class BoardController {
 	@RequestMapping("/detail/{no}")
 	private String boardDetail(@PathVariable int no, Model model) throws Exception{
 		model.addAttribute("detail", boardService.boardDetailService(no));
+		model.addAttribute("files", boardService.fileDetailService(no));
 		return "detail";
 	}
 	
@@ -86,6 +92,86 @@ public class BoardController {
 		
 		return "redirect:/list";
 	}
+	
+	
+	
+	
+	// 파일 다운로드
+	@RequestMapping("/fileDown/{no}")
+	private void fileDown(@PathVariable int no, HttpServletRequest req, HttpServletResponse res) throws Exception{
+		
+		req.setCharacterEncoding("utf-8");
+		FileVO fileVO = boardService.fileDetailService(no);
+		
+		// 파일 업로드 경로
+		try {
+			String fileUrl = fileVO.getFileUrl();
+			fileUrl += "/";
+			String savePath = fileUrl;
+			String fileName = fileVO.getFileName();
+			
+			// 실제 내보낼 파일명
+			String origFileName = fileVO.getFileOrigName();
+			InputStream in = null;
+			OutputStream out = null;
+			File file = null;
+			boolean skip = false;
+			String client = "";
+			
+			// 파일 읽어서 스트림에 담기
+			try {
+				file = new File(savePath, fileName);
+				in = new FileInputStream(file);
+			}catch (FileNotFoundException e) {
+				skip = true;
+			}
+			
+			client = req.getHeader("User-Agent");
+			
+			// 파일 다운로드 헤더 지정
+			res.reset();
+			res.setContentType("application/octet-stream");
+			res.setHeader("Content-Description", "JSP Generated Data");
+			
+			if(!skip) {
+				// IE
+				if(client.indexOf("MSIE")!=-1) {
+					res.setHeader("Content-Disposition", "attachment; filename=\""
+							+ java.net.URLEncoder.encode(origFileName, "utf-8").replaceAll("\\+", "\\ ") + "\"");
+				}
+				// IE 11 이상
+				else if (client.indexOf("Trident")!= -1) {
+					res.setHeader("Content-Disposition", "attachment; filename=\""
+							+ java.net.URLEncoder.encode(origFileName, "utf-8").replaceAll("\\+", "\\ ") + "\"");
+				} else {
+					// 한글 파일 처리
+					res.setHeader("Content-Disposition", "attachment; filename=\"" + new String(origFileName.getBytes("utf-8"), "ISO8859_1") + "\"");
+					res.setHeader("Content-Type", "application/octet-stream; charset=utf-8");
+				}
+				res.setHeader("Content-Length", ""+file.length());
+				out = res.getOutputStream();
+				byte b[] = new byte[(int) file.length()];
+				int leng = 0;
+				while ((leng = in.read(b)) > 0) {
+					out.write(b, 0, leng);
+				}
+			} else {
+				res.setContentType("text/html;charset=UTF-8");
+				System.out.println("<script language='javascript'>alert('파일을 찾을 수 없습니다.');history.back();</script>");
+			}
+			in.close();
+			out.close();
+		}catch (Exception e) {
+			System.out.println("ERROR : " + e.getMessage());
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	// 수정 폼 호출
