@@ -13,7 +13,7 @@
 
 	<div class="container">
 		<div class="col-xs-12" style="margin: 15px auto;">
-			<label style="font-size:20px;"><span class="glyphicon glyphicon-list-edit">&nbsp; 글 작성</span></label>
+			<label style="font-size:20px;"><span class="glyphicon glyphicon-edit">&nbsp; 글 작성</span></label>
 			<button class="btn btn-primary btn-sm" style="float:right;" onclick="location.href='/insert'">글쓰기</button>
 		</div>
 	
