@@ -19,31 +19,29 @@
 			<label style="font-size:20px;"><span class="glyphicon glyphicon-list-alt">게시글 목록</span></label>
 			<button class="btn btn-primary btn-sm" style="float:right;" onclick="location.href='/insert'">글쓰기</button>
 		</div>
+	
+		<div class="col-xs-12">
+		    <table class="table table-hover">
+		        <tr>
+		            <th>No</th>
+		            <th>Subject</th>
+		            <th>Writer</th>
+		            <th>Date</th>
+		        </tr>
+		          <c:forEach var="l" items="${list}">
+		              <tr onclick="location.href='/detail/${l.no}'">
+		                  <td>${l.no}</td>
+		                  <td>${l.subject}</td>
+		                  <td>${l.writer}</td>
+		                  <td>
+		                  	<fmt:formatDate value="${l.regDate}" pattern="yyyy.MM.dd HH:mm:ss"/>
+		                  </td>
+		              </tr>
+		          </c:forEach>
+		          
+		    </table>
 		</div>
-	
-	
-	<div class="col-xs-12">
-	    <table class="table table-hover">
-	        <tr>
-	            <th>No</th>
-	            <th>Subject</th>
-	            <th>Writer</th>
-	            <th>Date</th>
-	        </tr>
-	          <c:forEach var="l" items="${list}">
-	              <tr onclick="location.href='/detail/${l.no}'">
-	                  <td>${l.no}</td>
-	                  <td>${l.subject}</td>
-	                  <td>${l.writer}</td>
-	                  <td>
-	                  	<fmt:formatDate value="${l.regDate}" pattern="yyyy.MM.dd HH:mm:ss"/>
-	                  </td>
-	              </tr>
-	          </c:forEach>
-	          
-	    </table>
-	</div>
- 
+ 	</div>
 </body>
 </html>
 </layoutTag:layout>
