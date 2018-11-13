@@ -10,25 +10,32 @@
 <title>글 수정</title>
 </head>
 <body>
-	<div class="container">
-	    <form action="/updateProc/${detail.no}" method="post">
-	    
-	      <div class="form-group">
-	        <label for="subject">제목</label>
-	        <input type="text" class="form-control" id="subject" name="subject" value="${detail.subject}">
-	      </div>
-	      
-	      <div class="form-group">
-	        <label for="content">내용</label>
-	        <textarea class="form-control" id="content" name="content" rows="3">${detail.content}</textarea>
-	      </div>
-	      
-	      <input type="hidden" name="no" value="${detail.no}"/>
-	      <button type="submit" class="btn btn-primary">수정</button>
-	    </form>
-	</div>
 
-	 <%@ include file="bootstrap.jsp" %>
+
+	<div class="container">
+		<div class="col-xs-12" style="margin: 15px auto;">
+			<label style="font-size:20px;"><span class="glyphicon glyphicon-edit">&nbsp;수정</span></label>
+		</div>
+	
+	
+		<div class="col-xs-12">
+		    <form action="/updateProc/${detail.no}" method="post">
+		    
+		      <div class="form-group">
+		        <label for="subject">제목</label>
+		        <input type="text" class="form-control" id="subject" name="subject" value="${detail.subject}">
+		      </div>
+		      
+		      <div class="form-group">
+		        <label for="content">내용</label>
+		        <textarea class="form-control" id="content" name="content" rows="3">${detail.content}</textarea>
+		      </div>
+		      
+		      <input type="hidden" name="no" value="${detail.no}"/>
+		      <button type="submit" class="btn btn-primary btn-sm" style="float:right;">수정</button>
+		    </form>
+		</div>
+	</div>
 </body>
 </html>
 </layoutTag:layout>

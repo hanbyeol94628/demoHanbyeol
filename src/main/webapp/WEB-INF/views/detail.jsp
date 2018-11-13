@@ -1,51 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="layoutTag" tagdir="/WEB-INF/tags"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
+<%@ taglib prefix="layoutTag" tagdir="/WEB-INF/tags"%>      
+    
 <layoutTag:layout> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Detail</title>
 </head>
 <body>
 		 
-	<h2>게시글 상세 </h2>
-	 
-	 <button class="btn btn-primary" onclick="location.href='/update/${detail.no}'">수정</button>
-	 <button class="btn btn-danger" onclick="location.href='/delete/${detail.no}'">삭제</button>
-	 <button class="btn btn-primary" onclick="location.href='/list'">목록</button>
-	 
-	 
+
 	<div class="container">
-	    <form action="/insertProc" method="post">
-	      <div class="form-group">
-	        <label>제목</label>
-	        <p>${detail.subject}</p>
-	      </div>
-	      <div class="form-group">
-	        <label>작성자</label>
-	        <p>${detail.writer}</p>
-	      </div>
-	      
-	      <div class="form-group">
-	        <label>첨부 파일</label>
-	        <p><a href="/fileDown/${files.no}">${files.fileOrigName}</a></p>
-	      </div>
-	      
-	      <div class="form-group">
-	        <label>작성날짜</label>
-	        <p>${detail.regDate}</p>
-	      </div>
-	      <div class="form-group">
-	        <label>내용</label>
-	        <p>${detail.content}</p>
-	      </div>
-	      <!-- <button type="submit" class="btn btn-primary">작성</button> -->
-	    </form>
-</div>
-	
+		<div class="col-xs-12" style="margin: 15px auto;">
+			<label style="font-size:20px;"><span class="glyphicon glyphicon-edit">&nbsp;글 보기</span></label>
+		</div>
+	 
+		<div class="cos-xs-12">
+		    <form action="/insertProc" method="post">
+		      <dl class="dl-horizontal">
+		        <dt>제목</dt>
+		        <dd>${detail.subject}</dd>
+		        
+		        <dt>제목</dt>
+		        <dd>${detail.writer}</dd>
+		      
+		        <dt>작성 날짜</dt>
+		        <dd>
+		        	<fmt:formatDate value="${detail.regDate}" pattern="yyyy.MM.dd HH:mm:ss" />
+		        </dd>
+		        
+		        <dt>첨부파일</dt>
+		        <dd><a href="/fileDown/${files.no}">${files.fileOrigName}</a></dd>
+		        
+		        <dt>내용</dt>
+		        <dd>${detail.content}</dd>
+		       </dl>
+		    </form>
+				    
+			 <div class="btn-group btn-group-sm" role="group" style="float:right;">
+				 <button class="btn btn-default" onclick="location.href='/update/${detail.no}'">수정</button>
+				 <button class="btn btn-default" onclick="location.href='/delete/${detail.no}'">삭제</button>
+				 <button class="btn btn-default" onclick="location.href='/list'">목록</button>
+			 </div>
+			 
+		</div>
+		
+	</div>
 </body>
 </html>
 </layoutTag:layout>
