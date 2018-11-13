@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.BoardVO;
+import com.example.domain.FileVO;
 import com.example.service.BoardService;
 
 @Controller
@@ -24,7 +26,7 @@ public class BoardController {
 	
 	
 	// 리스트
-	@RequestMapping("/list")
+	@RequestMapping(value= {"/list", "/"})
 	private String boardList(Model model) throws Exception{
 		model.addAttribute("list", boardService.boardListService());
 		return "list";
@@ -38,37 +40,49 @@ public class BoardController {
 	
 	// 작성 폼 호출
 	@RequestMapping("/insert")
-	private String boardInsertForm() {
+	private String boardInsertForm() throws Exception {
 		return "insert";
 	}
 	
 	
 	@RequestMapping("/insertProc")
-	private String boardInsertProc(HttpServletRequest request) throws Exception{
+	private String boardInsertProc(HttpServletRequest request, @RequestParam("files") MultipartFile files) throws Exception{
 		
 		BoardVO board = new BoardVO();
+		FileVO file = new FileVO();
 		
 		board.setSubject(request.getParameter("subject"));
 		board.setContent(request.getParameter("content"));
 		board.setWriter(request.getParameter("writer"));
 		
-		MultipartFile files = null;
-		
-		String sourceFileName = files.getOriginalFilename();
-		String sourcFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase();
-		File destinationFile;
-		String destinationFileName;
-		String fileUrl = "F:\\JSP_study\\demoHanbyeol\\src\\main\\webapp\\WEB-INF\\uploadFiles";
-		
-		do {
-			destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + sourcFileNameExtension;
-			destinationFile = new File(fileUrl + destinationFileName);
-		} while(destinationFile.exists());
-		
-		destinationFile.getParentFile().mkdirs();
-		files.transferTo(destinationFile);
-		
-		boardService.boardInsertService(board);
+
+		if(files.isEmpty()) {
+			boardService.boardInsertService(board);
+		}else {
+			
+			String fileName = files.getOriginalFilename();
+			String fileNameExtension = FilenameUtils.getExtension(fileName).toLowerCase();
+			File destinationFile;
+			String destinationFileName;
+			String fileUrl = "F:\\JSP_study\\demoHanbyeol\\src\\main\\webapp\\WEB-INF\\uploadFiles\\";
+			
+			do {
+				destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + fileNameExtension;
+				destinationFile = new File(fileUrl + destinationFileName);
+			} while(destinationFile.exists());
+			
+			destinationFile.getParentFile().mkdirs();
+			files.transferTo(destinationFile);
+			
+			boardService.boardInsertService(board);
+			
+			file.setNo(boardService.lastNo());
+			file.setFileName(destinationFileName);
+			file.setFileOrigName(fileName);
+			file.setFileUrl(fileUrl);
+
+			boardService.fileInsertService(file);
+		}
 		
 		return "redirect:/list";
 	}

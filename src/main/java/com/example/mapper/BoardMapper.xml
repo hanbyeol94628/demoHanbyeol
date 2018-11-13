@@ -25,11 +25,27 @@
 		no = #{no}
 	</select>
 
-	<insert id="boardInsert" parameterType="com.example.domain.BoardVO">
+	<select id="lastNo" parameterType="int" resultType="Integer">
+		SELECT 
+		NO
+		FROM
+		(SELECT * FROM HBBOARD ORDER BY NO DESC)
+		WHERE ROWNUM = 1
+	</select>
+
+	<insert id="boardInsert" parameterType="com.example.domain.BoardVO" useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO
 		HBBOARD (NO, SUBJECT, CONTENT, WRITER, REGDATE)
 		VALUES (HBBOARD_SEQ.nextval, #{subject}, #{content}, #{writer}, sysdate)
 	</insert>
+	
+	<insert id="fileInsert" parameterType="com.example.domain.FileVO">
+		INSERT INTO
+		FILES (FNO, NO, FILENAME, FILEORIGNAME, FILEURL)
+		VALUES (FILES_SEQ.nextval, #{no}, #{fileName}, #{fileOrigName}, #{fileUrl})
+	</insert>
+	
+	
 	
 	<update id="boardUpdate" parameterType="com.example.domain.BoardVO">
 		UPDATE HBBOARD
