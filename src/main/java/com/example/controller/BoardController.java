@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,9 @@ import com.example.service.BoardService;
 @Controller
 public class BoardController {
 
+	@Value("${file.upload.directory}")
+	String uploadFileDir;
+	
 	@Resource(name="com.example.service.BoardService")
 	BoardService boardService;
 	
@@ -53,7 +57,7 @@ public class BoardController {
 	
 	@RequestMapping("/insertProc")
 	private String boardInsertProc(HttpServletRequest request, @RequestParam("files") MultipartFile files) throws Exception{
-		
+
 		BoardVO board = new BoardVO();
 		FileVO file = new FileVO();
 		
@@ -70,11 +74,11 @@ public class BoardController {
 			String fileNameExtension = FilenameUtils.getExtension(fileName).toLowerCase();
 			File destinationFile;
 			String destinationFileName;
-			String fileUrl = "F:\\JSP_study\\demoHanbyeol\\src\\main\\webapp\\WEB-INF\\uploadFiles\\";
+//			String fileUrl = "F:\\JSP_study\\demoHanbyeol\\src\\main\\webapp\\WEB-INF\\uploadFiles\\";
 			
 			do {
 				destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + fileNameExtension;
-				destinationFile = new File(fileUrl + destinationFileName);
+				destinationFile = new File(uploadFileDir + destinationFileName);
 			} while(destinationFile.exists());
 			
 			destinationFile.getParentFile().mkdirs();
@@ -85,7 +89,7 @@ public class BoardController {
 			file.setNo(boardService.lastNo());
 			file.setFileName(destinationFileName);
 			file.setFileOrigName(fileName);
-			file.setFileUrl(fileUrl);
+			file.setFileUrl(uploadFileDir);
 
 			boardService.fileInsertService(file);
 		}

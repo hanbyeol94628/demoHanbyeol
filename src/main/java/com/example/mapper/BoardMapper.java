@@ -2,6 +2,7 @@ package com.example.mapper;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.BoardVO;
