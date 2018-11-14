@@ -30,5 +30,9 @@ public class CommentService {
 	public int commentDeleteService(int cno) throws Exception{
 		return commentMapper.commentDelete(cno);
 	}
+
+	public CommentVO commentDetailService(int cno) throws Exception{
+		return commentMapper.commentDetail(cno);
+	}
 	
 }

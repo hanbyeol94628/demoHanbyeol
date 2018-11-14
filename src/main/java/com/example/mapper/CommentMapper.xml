@@ -17,6 +17,12 @@
 		WHERE NO = #{no}
 	</select>
 	
+	<select id="commentDetail" parameterType="int" resultType="com.example.domain.CommentVO">
+		SELECT
+		*
+		FROM HBCOMMENT
+		WHERE CNO = #{cno}
+	</select>
 
 	<insert id="commentInsert" parameterType="com.example.domain.CommentVO">
 		INSERT INTO

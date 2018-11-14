@@ -9,6 +9,11 @@
 		commentAdd(insertData);
 	});
 	
+	
+	
+	
+	
+	
 	// 댓글 목록
 	function commentList(){
 		$.ajax({
@@ -19,10 +24,10 @@
 				var a = '';
 				$.each(data, function(key, value){
 					a += '<div class="commentArea" style="margin-bottom:15px;">';
-					a += '<div class="commentInfo'+value.cno+'">'+'no.'+value.cno+'/작성자:'+value.writer;
+					a += '<div class="commentInfo'+value.cno+'">'+'작성자:<b>'+value.writer+'</b>';
 				 	a += '<a onclick="commentUpdate('+value.cno+',\''+value.content+'\');"> 수정 </a>';
 	                a += '<a onclick="commentDelete('+value.cno+');"> 삭제 </a> </div>';
-	                a += '<div class="commentContent'+value.cno+'"> <p> 내용 : '+value.content +'</p>';
+	                a += '<div class="commentContent'+value.cno+'">'+value.content +'</p>';
 	                a += '</div></div>';
 				});
 				
@@ -62,13 +67,12 @@
 	// 댓글 수정
 	function commentUpdateProc(cno){
 		var updateContent = $('[name=content_'+cno+']').val();
-		
 		$.ajax({
-			url : '/comment/update',
+			url : '/comment/update/'+cno,
 		    type : 'post',
 		    data : {'content' : updateContent, 'cno' : cno},
 		    success : function(data){
-		    	if(data == 1) commentList(bno); //댓글 수정후 목록 출력 
+		    	if(data == 1) commentList(no); //댓글 수정후 목록 출력 
 		    }
 		});
 	}
@@ -81,13 +85,10 @@
 	        url : '/comment/delete/'+cno,
 	        type : 'post',
 	        success : function(data){
-	            if(data == 1) commentList(bno); //댓글 삭제후 목록 출력 
+	            if(data == 1) commentList(no); //댓글 삭제후 목록 출력 
 	        }
 	    });
 	}
-	 
-	 
-	 
 	 
 	$(document).ready(function(){
 	    commentList(); //페이지 로딩시 댓글 목록 출력 

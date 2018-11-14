@@ -23,4 +23,7 @@ public interface CommentMapper {
 	
 	// 댓글 삭제
 	public int commentDelete(int cno) throws Exception;
+	
+	// 댓글 상세
+	public CommentVO commentDetail(int cno) throws Exception;
 }

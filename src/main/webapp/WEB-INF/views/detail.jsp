@@ -44,10 +44,10 @@
 		<!-- 댓글 -->
 		<div class="container">
 		
-			<form name="commentAddForm">
-			<input type="hidden" name="no" value="${detail.no}"/>
 			<div class="row justify-content-md-center">
 				
+			<form name="commentAddForm">
+				<input type="hidden" name="no" value="${detail.no}"/>
 				<div class="col col-lg-2">
 					<input type="text" class="form-control" id="writer" name="writer" style="float:right;" placeholder="작성자">
 				</div>
@@ -62,8 +62,8 @@
 				</span>
 				</div>
 				
-			</div>
 			</form>
+			</div>
 		</div>
 	
 		<div class="container">
