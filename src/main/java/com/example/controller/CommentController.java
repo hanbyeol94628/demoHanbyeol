@@ -41,18 +41,19 @@ public class CommentController {
 	
 	@RequestMapping("/delete/{cno}")
 	@ResponseBody
-	private int commentServiceDelete(@PathVariable int cno, Model model) throws Exception {
+	private int commentServiceDelete(@PathVariable int cno) throws Exception {
 		return commentService.commentDeleteService(cno);
 	}
 	
 	
 	@RequestMapping("/update/{cno}")
-	private int boardUpdateProc(@PathVariable int cno, @RequestParam String content, HttpServletRequest request) throws Exception{
+	@ResponseBody
+	private int boardUpdateProc(@PathVariable int cno, @RequestParam String content) throws Exception{
        
-		CommentVO newComment = commentService.commentDetailService(cno);
-		newComment.setContent(content);
+		CommentVO comment = commentService.commentDetailService(cno);
+		comment.setContent(content);
         
-        return commentService.commentUpdateService(newComment);
+        return commentService.commentUpdateService(comment);
 
 	}
 }
