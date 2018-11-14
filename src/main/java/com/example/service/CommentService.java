@@ -15,6 +15,10 @@ public class CommentService {
 	@Resource(name="com.example.mapper.CommentMapper")
 	CommentMapper commentMapper;
 	
+	public int commentCount(int no) throws Exception{
+		return commentMapper.commentCount(no);
+	}
+	
 	public List<CommentVO> commentListService(int no) throws Exception{
 		return commentMapper.commentList(no);
 	}
@@ -34,5 +38,6 @@ public class CommentService {
 	public CommentVO commentDetailService(int cno) throws Exception{
 		return commentMapper.commentDetail(cno);
 	}
+
 	
 }

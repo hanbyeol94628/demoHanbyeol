@@ -31,7 +31,7 @@
 		          <c:forEach var="l" items="${list}">
 		              <tr onclick="location.href='/detail/${l.no}'">
 		                  <td>${l.no}</td>
-		                  <td>${l.subject}</td>
+		                  <td>${l.subject}&nbsp;&nbsp;<small style="opacity:0.6;">${l.commentNum}</small></td>
 		                  <td>${l.writer}</td>
 		                  <td>
 		                  	<fmt:formatDate value="${l.regDate}" pattern="yyyy.MM.dd HH:mm:ss"/>

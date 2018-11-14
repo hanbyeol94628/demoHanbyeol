@@ -4,10 +4,11 @@
 <mapper namespace="com.example.mapper.CommentMapper">
 	
 	
-	<select id="commentCount" resultType="int">
+	<select id="commentCount" parameterType="int" resultType="int">
 		SELECT 
 			COUNT(*)
 		FROM HBCOMMENT
+		WHERE NO = #{no}
 	</select>
 
 	<select id="commentList" parameterType="int" resultType="com.example.domain.CommentVO">

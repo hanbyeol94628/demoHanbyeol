@@ -3,7 +3,6 @@ package com.example.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.domain.BoardVO;
 import com.example.domain.CommentVO;
+import com.example.service.BoardService;
 import com.example.service.CommentService;
 
 @Controller
@@ -22,6 +22,9 @@ public class CommentController {
 
 	@Resource(name="com.example.service.CommentService")
 	CommentService commentService;
+	
+	@Resource(name="com.example.service.BoardService")
+	BoardService boardService;
 	
 	@RequestMapping("/list")
 	@ResponseBody
@@ -36,13 +39,23 @@ public class CommentController {
 		comment.setNo(no);
 		comment.setContent(content);
 		comment.setWriter(writer);
+		
+		BoardVO board = boardService.boardDetailService(no);
+		board.setCommentNum(commentService.commentCount(no)+1);
+		boardService.boardUpdateComment(board);
+		
 		return commentService.commentInsertService(comment);
 	}
 	
-	@RequestMapping("/delete/{cno}")
+	@RequestMapping("/delete/{cno}/{no}")
 	@ResponseBody
-	private int commentServiceDelete(@PathVariable int cno) throws Exception {
+	private int commentServiceDelete(@PathVariable int cno, @PathVariable int no) throws Exception {
+		
+		BoardVO board = boardService.boardDetailService(no);
+		board.setCommentNum(commentService.commentCount(no)-1);
+		boardService.boardUpdateComment(board);
 		return commentService.commentDeleteService(cno);
+		
 	}
 	
 	

@@ -10,7 +10,7 @@ import com.example.domain.CommentVO;
 public interface CommentMapper {
 
 	// 댓글 수
-	public int commentCount() throws Exception;
+	public int commentCount(int no) throws Exception;
 	
 	// 댓글 목록
 	public List<CommentVO> commentList(int no) throws Exception;
@@ -26,4 +26,5 @@ public interface CommentMapper {
 	
 	// 댓글 상세
 	public CommentVO commentDetail(int cno) throws Exception;
+
 }

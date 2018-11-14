@@ -20,6 +20,11 @@ public class BoardService {
 		return boardMapper.boardCount();
 	};
 	
+	public List<Integer> boardNoList() throws Exception{
+		return boardMapper.boardNoList();
+	}
+	
+	
 	public List<BoardVO> boardListService() throws Exception{
 		return boardMapper.boardList();
 	}
@@ -50,4 +55,10 @@ public class BoardService {
 	public FileVO fileDetailService(int no) throws Exception{
 		return boardMapper.fileDetail(no);
 	}
+	
+	
+
+	public int boardUpdateComment(BoardVO board) throws Exception{
+		return boardMapper.boardUpdateComment(board);
+	};
 }

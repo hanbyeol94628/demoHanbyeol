@@ -14,6 +14,9 @@ public interface BoardMapper {
 	// 글 개수
 	public int boardCount() throws Exception;
 	
+	// 글 번호 리스트
+	public List<Integer> boardNoList() throws Exception;
+	
 	// 글 목록
 	public List<BoardVO> boardList() throws Exception;
 	
@@ -37,4 +40,7 @@ public interface BoardMapper {
 	
 	// 파일 상세
 	public FileVO fileDetail(int no) throws Exception;
+	
+	// 댓글 수 업데이트
+	public int boardUpdateComment(BoardVO board) throws Exception;
 }

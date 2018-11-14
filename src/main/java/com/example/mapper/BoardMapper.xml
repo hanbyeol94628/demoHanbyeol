@@ -3,6 +3,12 @@
 
 <mapper namespace="com.example.mapper.BoardMapper">
 	
+	<select id="boardNoList" resultType="com.example.domain.BoardVO">
+		SELECT
+		NO
+		FROM HBBOARD
+		ORDER BY NO DESC
+	</select>
 	
 	<select id="boardCount" resultType="int">
 		SELECT 
@@ -35,14 +41,14 @@
 
 	<insert id="boardInsert" parameterType="com.example.domain.BoardVO" useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO
-		HBBOARD (NO, SUBJECT, CONTENT, WRITER, REGDATE)
-		VALUES (HBBOARD_SEQ.nextval, #{subject}, #{content}, #{writer}, sysdate)
+		HBBOARD (NO, SUBJECT, CONTENT, WRITER, REGDATE, COMMENTNUM)
+		VALUES (HBBOARD_SEQ.nextval, #{subject}, #{content}, #{writer}, sysdate, 0)
 	</insert>
 	
 	<insert id="fileInsert" parameterType="com.example.domain.FileVO">
 		INSERT INTO
-		FILES (FNO, NO, FILENAME, FILEORIGNAME, FILEURL)
-		VALUES (FILES_SEQ.nextval, #{no}, #{fileName}, #{fileOrigName}, #{fileUrl})
+		HBFILES (FNO, NO, FILENAME, FILEORIGNAME, FILEURL)
+		VALUES (HBFILES_SEQ.nextval, #{no}, #{fileName}, #{fileOrigName}, #{fileUrl})
 	</insert>
 	
 	
@@ -53,6 +59,13 @@
 		SUBJECT = #{subject}
 		,
 		CONTENT = #{content}
+		WHERE no = #{no}
+	</update>
+	
+	<update id="boardUpdateComment" parameterType="com.example.domain.BoardVO">
+		UPDATE HBBOARD
+		SET 
+		COMMENTNUM = #{commentNum}
 		WHERE no = #{no}
 	</update>
 	
@@ -67,7 +80,7 @@
 	<select id="fileDetail" parameterType="int" resultType="com.example.domain.FileVO">
 		SELECT
 		*
-		FROM Files
+		FROM HBFILES
 		WHERE
 		NO = #{no}
 	</select>

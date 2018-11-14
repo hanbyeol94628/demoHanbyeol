@@ -82,7 +82,7 @@
 	//댓글 삭제 
 	function commentDelete(cno){
 	    $.ajax({
-	        url : '/comment/delete/'+cno,
+	        url : '/comment/delete/'+cno+'/'+no,
 	        type : 'post',
 	        success : function(data){
 	            if(data == 1) commentList(no); //댓글 삭제후 목록 출력 

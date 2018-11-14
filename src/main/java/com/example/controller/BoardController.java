@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.domain.BoardVO;
 import com.example.domain.FileVO;
 import com.example.service.BoardService;
+import com.example.service.CommentService;
 
 @Controller
 public class BoardController {
@@ -32,6 +34,9 @@ public class BoardController {
 	
 	@Resource(name="com.example.service.BoardService")
 	BoardService boardService;
+	
+	@Resource(name="com.example.service.CommentService")
+	CommentService commentService;
 	
 	
 	// 리스트
