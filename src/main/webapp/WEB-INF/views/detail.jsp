@@ -16,7 +16,7 @@
 		        <dt>제목</dt>
 		        <dd>${detail.subject}</dd>
 		        
-		        <dt>제목</dt>
+		        <dt>작성자</dt>
 		        <dd>${detail.writer}</dd>
 		      
 		        <dt>작성 날짜</dt>
@@ -39,24 +39,35 @@
 			 </div>
 		</div>
 		
+	</div>
 		
 		<!-- 댓글 -->
 		<div class="container">
-			<label for="content">comment</label>
-			<form name="commentInsertForm">
-				<div class="input-group">
-					<input type="hidden" name="no" value="${detail.no}"/>
-					<input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요">
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" name="commentAddBtn">등록</button>
-					</span>
+		
+			<form name="commentAddForm">
+			<input type="hidden" name="no" value="${detail.no}"/>
+			<div class="row justify-content-md-center">
+				
+				<div class="col col-lg-2">
+					<input type="text" class="form-control" id="writer" name="writer" style="float:right;" placeholder="작성자">
 				</div>
+				
+				<div class="col col-md-auto">
+					<input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요">
+				</div>
+				
+				<div class="col col-lg-2">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" name="commentAddBtn">등록</button>
+				</span>
+				</div>
+				
+			</div>
 			</form>
 		</div>
 	
 		<div class="container">
 			<div class="commentList"></div>
 		</div>
-	</div>
 <%@ include file="commentS.jsp" %>	
 </layoutTag:layout>

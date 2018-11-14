@@ -13,7 +13,7 @@ public interface CommentMapper {
 	public int commentCount() throws Exception;
 	
 	// 댓글 목록
-	public List<CommentVO> commentList() throws Exception;
+	public List<CommentVO> commentList(int no) throws Exception;
 	
 	// 댓글 작성
 	public int commentInsert(CommentVO comment) throws Exception;
